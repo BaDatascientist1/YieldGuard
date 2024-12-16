@@ -60,6 +60,6 @@ Les fichiers `.pkl` contiennent les modèles entraînés pour effectuer les pré
 ## **Contributeurs**  
 
 - **Votre Nom**  
-  *Data Scientist et Développeur des applications*  
+  *Data Scientist*  
 
 ---
