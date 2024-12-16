@@ -1,140 +1,65 @@
-# Guide de déploiement de l'application Streamlit pour la prédiction des rendements
-
-Ce guide explique étape par étape comment déployer une application Streamlit pour prédire les rendements agricoles en utilisant des modèles pré-entraînés (SARIMAX). Les données climatiques futures sont requises en tant qu'entrées.
 
 ---
 
-## 1. **Prérequis**
+# **Prédiction des Rendements Agricoles avec Streamlit**  
 
-### Logiciels nécessaires
-- **Python 3.8 ou supérieur**
-- **Git** (pour cloner et gérer le dépôt GitHub)
-- **Streamlit** (pour exécuter l'application)
-- **pip** ou **conda** (pour installer les dépendances)
+Ce projet contient deux applications Streamlit, `app_ar.py` et `app_riz.py`, développées pour lancer des modèles de prédiction des rendements annuels de l’arachide et du riz. Ces applications utilisent des fichiers de test et des modèles pré-entraînés pour fournir des prédictions basées sur des facteurs climatiques.
 
-### Bibliothèques Python requises
-- streamlit
-- numpy
-- pandas
-- statsmodels
-- pmdarima
-- matplotlib
+## **Contenu du projet**  
 
-Ces bibliothèques sont listées dans le fichier `requirements.txt`.
+- **`app_ar.py`** : Application Streamlit pour le modèle de prédiction du rendement de l'arachide.  
+- **`app_riz.py`** : Application Streamlit pour le modèle de prédiction du rendement du riz.  
+- **`fichier_test.csv`** : Un fichier CSV d'exemple pour tester les modèles.  
+- **`model_arachide.pkl`** : Modèle pré-entraîné pour prédire le rendement de l'arachide.  
+- **`model_riz.pkl`** : Modèle pré-entraîné pour prédire le rendement du riz.  
 
----
+## **Prérequis**  
 
-## 2. **Configuration locale du projet**
-
-1. **Cloner le dépôt GitHub**
-   
-   Si votre projet est sur GitHub, cloner le répertoire avec la commande suivante :
-   ```bash
-   git clone <URL_du_dépôt>
-   ```
-   Naviguez ensuite dans le dossier du projet :
-   ```bash
-   cd <nom_du_répertoire>
-   ```
-
-2. **Installer les dépendances**
-   
-   Si vous utilisez **pip** :
+Assurez-vous d’avoir installé les dépendances nécessaires avant de lancer les applications :  
+1. **Python 3.8+**  
+2. Les bibliothèques Python requises (spécifiées dans un fichier `requirements.txt` si vous l'avez ajouté). Pour les installer :  
    ```bash
    pip install -r requirements.txt
    ```
-   Si vous utilisez **conda** :
+
+## **Comment exécuter les applications ?**  
+
+1. Clonez le dépôt sur votre machine :  
    ```bash
-   conda create --name my_env --file requirements.txt
-   conda activate my_env
+   git clone https://github.com/votre-utilisateur/nom-du-repo.git
+   cd nom-du-repo
    ```
 
-3. **Vérifier l'installation**
-   Lancez Streamlit pour tester localement l'application :
+2. Lancez l'application pour le modèle de l'arachide :  
    ```bash
-   streamlit run app.py
+   streamlit run app_ar.py
    ```
-   Cela ouvrira une interface dans votre navigateur. Assurez-vous que tout fonctionne correctement.
+
+3. Lancez l'application pour le modèle du riz :  
+   ```bash
+   streamlit run app_riz.py
+   ```
+
+## **Comment utiliser les applications ?**  
+
+1. Une fois l'application lancée, elle s’ouvre dans votre navigateur.  
+2. **Téléversez** un fichier CSV (comme `fichier_test.csv`) contenant les données nécessaires au modèle.  
+3. Cliquez sur **Prédire** pour afficher les résultats.  
+
+## **Structure des données d'entrée**  
+
+Les modèles attendent des fichiers CSV avec les colonnes suivantes (à adapter si nécessaire) :  
+- Exemple : `Temperature`, `Pluviométrie`, `Humidité du sol`.  
+
+Assurez-vous que votre fichier d'entrée respecte cette structure pour des prédictions fiables.
+
+## **Aperçu des fichiers modèles (`.pkl`)**  
+
+Les fichiers `.pkl` contiennent les modèles entraînés pour effectuer les prédictions. Ils ont été générés à partir de données climatiques et agricoles, et ils sont chargés directement par les scripts `app_ar.py` et `app_riz.py`.
+
+## **Contributeurs**  
+
+- **Votre Nom**  
+  *Data Scientist et Développeur des applications*  
 
 ---
-
-## 3. **Organisation des fichiers**
-
-Assurez-vous que votre répertoire contient les fichiers suivants :
-
-- **app.py** : le fichier principal contenant le code de l'application.
-- **requirements.txt** : liste des bibliothèques nécessaires.
-- **modèles pré-entraînés** : fichiers enregistrés (par ex. `sarimax_riz.pkl`, `sarimax_arachide.pkl`).
-
-Structure suggérée :
-```
-Projet/
-|— app.py
-|— requirements.txt
-|— sarimax_riz.pkl
-|— sarimax_arachide.pkl
-|— Donnees/
-    |— exemple_donnees.csv
-```
-
----
-
-## 4. **Déploiement sur Streamlit Cloud**
-
-1. **Créer un compte Streamlit Cloud**
-   - Rendez-vous sur [streamlit.io](https://streamlit.io/) et créez un compte.
-   
-2. **Importer votre projet**
-   - Depuis votre tableau de bord, cliquez sur **New App**.
-   - Sélectionnez le dépôt GitHub contenant votre projet.
-
-3. **Configurer l'application**
-   - Branche : choisissez la branche principale (généralement `main` ou `master`).
-   - Chemin du fichier : indiquez le chemin vers `app.py` (par exemple, `app.py` si à la racine).
-
-4. **Déployer**
-   Cliquez sur **Deploy**. Streamlit Cloud installera automatiquement les dépendances et lancera l'application.
-
-5. **Partager votre application**
-   Une URL publique sera générée (par exemple : `https://<votre_nom>.streamlit.app`). Partagez cette URL pour permettre à d'autres d'accéder à votre application.
-
----
-
-## 5. **Fonctionnalités de l'application**
-
-- **Upload des données futures** :
-  L'utilisateur peut importer un fichier CSV contenant les données climatiques futures avec les colonnes suivantes :
-  - `LATITUDE`, `LONGITUDE`, `GWETTOP`, `PRECTOTCORR`, `QV2M`, `RH2M`, `T2M`, `T2M_MAX`, `T2M_RANGE`.
-
-- **Affichage des prédictions** :
-  - Les prédictions de rendement (en kg/ha) sont affichées dans un tableau avec les coordonnées géographiques (latitude, longitude).
-  - Un graphique est généré pour visualiser les résultats.
-
----
-
-## 6. **Dépannage**
-
-### Problèmes communs
-1. **Erreur : ModuleNotFoundError**
-   - Assurez-vous que toutes les bibliothèques sont installées.
-   - Vérifiez que `requirements.txt` inclut bien toutes les dépendances.
-
-2. **Problèmes d'importation de modèles**
-   - Assurez-vous que les fichiers des modèles (`sarimax_riz.pkl`, `sarimax_arachide.pkl`) sont bien dans le répertoire du projet.
-
-3. **Erreur lors de l'upload des données futures**
-   - Vérifiez que le fichier CSV contient les colonnes nécessaires.
-   - Assurez-vous que les noms des colonnes correspondent exactement.
-
----
-
-## 7. **Idées d'améliorations futures**
-
-- Intégration de données saisonnières pour des prédictions plus précises.
-- Optimisation des modèles avec d'autres approches (exemple : Random Forest, XGBoost).
-- Génération d'une interface multilingue pour toucher un public plus large.
-
----
-
-Avec ce guide, vous devriez être capable de déployer et d'utiliser votre application Streamlit sans problème. Bonne chance pour votre présentation ! 🎉
-
